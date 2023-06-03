@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 222.2 47.4% 11.2%;
+
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 215.4 16.3% 46.9%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 222.2 47.4% 11.2%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 222.2 47.4% 11.2%;
+
+		--border: 214.3 31.8% 91.4%;
+		--input: 214.3 31.8% 91.4%;
+
+		--primary: 222.2 47.4% 11.2%;
+		--primary-foreground: 210 40% 98%;
+
+		--secondary: 210 40% 96.1%;
+		--secondary-foreground: 222.2 47.4% 11.2%;
+
+		--accent: 210 40% 96.1%;
+		--accent-foreground: 222.2 47.4% 11.2%;
+
+		--destructive: 0 100% 50%;
+		--destructive-foreground: 210 40% 98%;
+
+		--ring: 215 20.2% 65.1%;
+
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: 224 71% 4%;
+		--foreground: 213 31% 91%;
+
+		--muted: 223 47% 11%;
+		--muted-foreground: 215.4 16.3% 56.9%;
+
+		--popover: 224 71% 4%;
+		--popover-foreground: 215 20.2% 65.1%;
+
+		--card: 224 71% 4%;
+		--card-foreground: 213 31% 91%;
+
+		--border: 216 34% 17%;
+		--input: 216 34% 17%;
+
+		--primary: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 1.2%;
+
+		--secondary: 222.2 47.4% 11.2%;
+		--secondary-foreground: 210 40% 98%;
+
+		--accent: 216 34% 17%;
+		--accent-foreground: 210 40% 98%;
+
+		--destructive: 0 63% 31%;
+		--destructive-foreground: 210 40% 98%;
+
+		--ring: 216 34% 17%;
+
+		--radius: 0.5rem;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+		font-feature-settings: "rlig" 1, "calt" 1;
+	}
+}
+
+@layer components {
+	.switch {
+		display: inline-flex;
+		align-items: center;
+	}
+	.switch__control {
+		display: inline-flex;
+		align-items: center;
+		height: 24px;
+		width: 44px;
+		border: 1px solid hsl(240 5% 84%);
+		border-radius: 12px;
+		padding: 0 2px;
+		background-color: hsl(240 6% 90%);
+		transition: 250ms background-color;
+	}
+	.switch__input:focus-visible + .switch__control {
+		outline: 2px solid hsl(200 98% 39%);
+		outline-offset: 2px;
+	}
+	.switch__control[data-checked] {
+		border-color: hsl(200 98% 39%);
+		background-color: hsl(200 98% 39%);
+	}
+	.switch__thumb {
+		height: 20px;
+		width: 20px;
+		border-radius: 10px;
+		background-color: white;
+		transition: 250ms transform;
+	}
+	.switch__thumb[data-checked] {
+		transform: translateX(calc(100% - 1px));
+	}
+	.switch__label {
+		margin-right: 6px;
+		color: hsl(240 6% 10%);
+		font-size: 14px;
+		user-select: none;
+		color: white;
+	}
+}
