@@ -13,7 +13,7 @@ export default function Home() {
 	return (
 		<main class='flex min-h-screen flex-col container mb-8 mt-32'>
 			<h1 class='text-2xl md:text-4xl font-bold mb-8 text-white text-center'>
-				Infinite Scroll Server Actions Example
+				Infinite Scroll Island Example
 			</h1>
 
 			<Show when={initialPokemon()}>
