@@ -1,11 +1,11 @@
 import { For } from "solid-js";
-import { PokemonType } from "~/routes";
 import { Card } from "./ui/Card";
+import { PokemonType } from "~/lib/type";
 
-const PokemonList = (props: { pokemon?: { results: PokemonType[] } }) => {
+const PokemonList = (props: { pokemon?: PokemonType[] }) => {
 	return (
 		<>
-			<For each={props.pokemon?.results}>
+			<For each={props.pokemon}>
 				{(pokemon) => (
 					<Card>
 						<div class='flex flex-col items-center p-4 gap-4'>
@@ -14,6 +14,7 @@ const PokemonList = (props: { pokemon?: { results: PokemonType[] } }) => {
 									pokemon.url.split("/")[6]
 								}.png`}
 								alt={pokemon.name}
+								loading='lazy'
 							/>
 							<span class='text-2xl font-bold text-white capitalize'>{pokemon.name}</span>
 						</div>

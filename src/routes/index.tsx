@@ -2,20 +2,7 @@ import { Show } from "solid-js";
 import { useRouteData } from "solid-start";
 import { createServerData$ } from "solid-start/server";
 import Pokemon from "~/components/Pokemon";
-export const PAGE_SIZE = 20;
-
-export type PokemonType = {
-	name: string;
-	url: string;
-};
-
-const getPokemons = async (offset: number = 0) => {
-	const data = await fetch(
-		`https://pokeapi.co/api/v2/pokemon-species?limit=${PAGE_SIZE}&offset=${offset}`
-	);
-	const r: { results: PokemonType[] } = await data.json();
-	return r;
-};
+import { getPokemons } from "~/lib/utils.server";
 
 export function routeData() {
 	return createServerData$(getPokemons);
@@ -30,7 +17,7 @@ export default function Home() {
 			</h1>
 
 			<Show when={initialPokemon()}>
-				<Pokemon pokemon={initialPokemon()} />
+				<Pokemon pokemon={initialPokemon()?.results} />
 			</Show>
 		</main>
 	);

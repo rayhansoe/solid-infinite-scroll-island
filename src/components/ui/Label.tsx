@@ -1,13 +1,19 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import type { Component, JSX } from "solid-js";
+import { splitProps } from "solid-js";
 
 import { cn } from "~/lib/utils";
 
-const labelVariants = cva(
-	"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-);
-
-const Label = (props: any) => (
-	<label ref={props.ref} class={cn(labelVariants(), props.class)} {...props} />
-);
+const Label: Component<JSX.LabelHTMLAttributes<HTMLLabelElement>> = (props) => {
+	const [, rest] = splitProps(props, ["class"]);
+	return (
+		<label
+			class={cn(
+				"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+				props.class
+			)}
+			{...rest}
+		/>
+	);
+};
 
 export { Label };
