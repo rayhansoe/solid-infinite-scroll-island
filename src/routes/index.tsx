@@ -1,4 +1,4 @@
-import { Show } from "solid-js";
+import { Show, Suspense } from "solid-js";
 import { useRouteData } from "solid-start";
 import { createServerData$ } from "solid-start/server";
 import Pokemon from "~/components/Pokemon";
@@ -16,9 +16,11 @@ export default function Home() {
 				Infinite Scroll Island Example
 			</h1>
 
-			<Show when={initialPokemon()}>
-				<Pokemon pokemon={initialPokemon()?.results} />
-			</Show>
+			<Suspense fallback='Loading...'>
+				<Show when={initialPokemon()}>
+					<Pokemon pokemon={initialPokemon()?.results} />
+				</Show>
+			</Suspense>
 		</main>
 	);
 }

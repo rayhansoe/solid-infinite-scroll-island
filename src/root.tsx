@@ -18,12 +18,12 @@ export default function Root() {
 	return (
 		<Html lang='en' class='dark'>
 			<Head>
-				<Title>SolidStart Infinite scroll Island</Title>
-				<Meta name='description' content='Infinite scroll Island example' />
+				<Title>SolidStart Infinite Scroll Island</Title>
+				<Meta name='description' content='Infinite Scroll Island Example' />
 				<Meta charset='utf-8' />
 				<Meta name='viewport' content='width=device-width, initial-scale=1' />
 			</Head>
-			<Body class='font-serif bg-slate-950'>
+			<Body class='font-sans-serif bg-slate-950'>
 				<Suspense>
 					<ErrorBoundary>
 						<Routes>

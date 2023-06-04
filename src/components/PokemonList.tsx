@@ -13,6 +13,8 @@ const PokemonList = (props: { pokemon?: PokemonType[] }) => {
 								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
 									pokemon.url.split("/")[6]
 								}.png`}
+								width={288}
+								height={288}
 								alt={pokemon.name}
 								loading='lazy'
 							/>

@@ -1,4 +1,4 @@
-import { JSX, Show, createEffect, createResource, createSignal, onMount } from "solid-js";
+import { JSX, Show, Suspense, createEffect, createResource, createSignal, onMount } from "solid-js";
 import { Button } from "./ui/Button";
 import { Label } from "./ui/Label";
 import { Card } from "./ui/Card";
@@ -16,9 +16,7 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 
 	const [loadMorePokemon, setLoadMorePokemon] = createStore<PokemonType[]>([]);
 
-	const [disabled, setDisabled] = createSignal(false);
 	const [scrollLoad, setScrollLoad] = createSignal(true);
-	const [loading, setLoading] = createSignal(false);
 
 	const handleLoadMore = () => {
 		if (newPokemon.latest?.nextOffset) {
@@ -56,20 +54,22 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 				</div>
 
 				{props.children}
-				<Show when={loadMorePokemon}>
-					<div
-						id='#PokemonListWrapper'
-						class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 relative'
-					>
-						<PokemonList pokemon={loadMorePokemon} />
-					</div>
-				</Show>
+				<Suspense fallback='Loading'>
+					<Show when={loadMorePokemon}>
+						<div
+							id='#PokemonListWrapper'
+							class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 relative'
+						>
+							<PokemonList pokemon={loadMorePokemon} />
+						</div>
+					</Show>
+				</Suspense>
 
 				<Button
 					variant='outline'
 					size='lg'
 					ref={ref}
-					disabled={disabled() || newPokemon.loading}
+					disabled={newPokemon.loading}
 					onClick={handleLoadMore}
 				>
 					<Show when={newPokemon.loading} fallback={<span>Load More</span>}>
