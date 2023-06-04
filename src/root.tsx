@@ -18,17 +18,12 @@ export default function Root() {
 	return (
 		<Html lang='en' class='dark'>
 			<Head>
-				<Title>SolidStart - With TailwindCSS</Title>
+				<Title>SolidStart Infinite scroll Island</Title>
+				<Meta name='description' content='Infinite scroll Island example' />
 				<Meta charset='utf-8' />
 				<Meta name='viewport' content='width=device-width, initial-scale=1' />
-				<Link rel='preconnect' href='https://fonts.googleapis.com' />
-				<Link rel='preconnect' href='https://fonts.gstatic.com' crossorigin='' />
-				<Link
-					href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap'
-					rel='stylesheet'
-				/>
 			</Head>
-			<Body class='font-inter bg-slate-950'>
+			<Body class='font-serif bg-slate-950'>
 				<Suspense>
 					<ErrorBoundary>
 						<Routes>
