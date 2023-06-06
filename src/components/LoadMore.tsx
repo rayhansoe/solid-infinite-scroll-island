@@ -1,15 +1,24 @@
-import { JSX, Show, Suspense, createMemo, createResource, createSignal } from "solid-js";
+import {
+	JSX,
+	Show,
+	createEffect,
+	createMemo,
+	createResource,
+	createSignal,
+	onMount,
+} from "solid-js";
 import { Button } from "./ui/Button";
 import { Label } from "./ui/Label";
 import { Card } from "./ui/Card";
 import { Switch } from "./ui/Switch";
 import { loadMore } from "~/lib/utils.server";
 import { PokemonType } from "~/lib/type";
-import PokemonList from "./PokemonList";
 import { createStore, produce } from "solid-js/store";
 
 const LoadMored = <T extends number = any>(props: { initialOffset: T; children: JSX.Element }) => {
 	let ref: HTMLButtonElement | undefined;
+	let PokemonListWrapper: HTMLElement | HTMLDivElement | null | undefined;
+
 	const [currentOffsetRef, setCurrentOffsetRef] = createSignal<number>();
 
 	const [newPokemon] = createResource(currentOffsetRef, loadMore);
@@ -38,6 +47,33 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 		return loadMorePokemon;
 	});
 
+	onMount(() => {
+		PokemonListWrapper = document.getElementById("#PokemonListWrapper");
+	});
+
+	createEffect(() => {
+		if (PokemonListWrapper && morePokemon().length) {
+			const newP = morePokemon().map((pokemon) => (
+				<div class='rounded-lg border bg-card text-card-foreground shadow-sm'>
+					<div class='flex flex-col items-center p-4 gap-4'>
+						<img
+							src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+								pokemon.url.split("/")[6]
+							}.png`}
+							width={288}
+							height={288}
+							alt={pokemon.name}
+							loading='lazy'
+						/>
+						<span class='text-2xl font-bold text-white capitalize'>{pokemon.name}</span>
+					</div>
+				</div>
+			));
+
+			PokemonListWrapper.append(...newP);
+		}
+	});
+
 	return (
 		<>
 			<div class='flex flex-col gap-4 items-center'>
@@ -55,7 +91,7 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 				</div>
 
 				{props.children}
-				<Suspense fallback='Loading'>
+				{/* <Suspense fallback='Loading'>
 					<Show when={morePokemon()}>
 						<div
 							id='#PokemonListWrapper'
@@ -64,7 +100,7 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 							<PokemonList pokemon={morePokemon()} />
 						</div>
 					</Show>
-				</Suspense>
+				</Suspense> */}
 
 				<Button
 					variant='outline'
