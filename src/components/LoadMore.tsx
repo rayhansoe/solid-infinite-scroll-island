@@ -1,4 +1,4 @@
-import { JSX, Show, Suspense, createEffect, createResource, createSignal, onMount } from "solid-js";
+import { JSX, Show, Suspense, createMemo, createResource, createSignal } from "solid-js";
 import { Button } from "./ui/Button";
 import { Label } from "./ui/Label";
 import { Card } from "./ui/Card";
@@ -26,15 +26,16 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 		setCurrentOffsetRef(() => props.initialOffset);
 	};
 
-	createEffect(() => {
-		const newDerPokemon = newPokemon.latest?.pokemon.results;
-		if (newDerPokemon) {
+	const morePokemon = createMemo(() => {
+		if (newPokemon.latest?.pokemon.results) {
 			setLoadMorePokemon(
 				produce((pokemons) => {
-					pokemons.push(...newDerPokemon);
+					pokemons.push(...newPokemon().pokemon.results);
 				})
 			);
+			return loadMorePokemon;
 		}
+		return loadMorePokemon;
 	});
 
 	return (
@@ -55,12 +56,12 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 
 				{props.children}
 				<Suspense fallback='Loading'>
-					<Show when={loadMorePokemon}>
+					<Show when={morePokemon()}>
 						<div
 							id='#PokemonListWrapper'
 							class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 relative'
 						>
-							<PokemonList pokemon={loadMorePokemon} />
+							<PokemonList pokemon={morePokemon()} />
 						</div>
 					</Show>
 				</Suspense>
