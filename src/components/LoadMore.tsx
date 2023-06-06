@@ -52,8 +52,8 @@ const LoadMored = <T extends number = any>(props: { initialOffset: T; children: 
 	});
 
 	createEffect(() => {
-		if (PokemonListWrapper && morePokemon().length) {
-			const newP = morePokemon().map((pokemon) => (
+		if (PokemonListWrapper && newPokemon.latest?.pokemon.results) {
+			const newP = newPokemon.latest.pokemon.results.map((pokemon) => (
 				<div class='rounded-lg border bg-card text-card-foreground shadow-sm'>
 					<div class='flex flex-col items-center p-4 gap-4'>
 						<img
